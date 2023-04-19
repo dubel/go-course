@@ -1,17 +1,27 @@
 package main
 
+import (
+	"fmt"
+	"math"
+)
+
 func main() {
-	//find primes below 100 and print them
+	fmt.Println("prime numbers:")
+	fmt.Println(2)
 
-	for i := 2; i < 100; i++ {
-		isPrime := true
-		for j := 2; j < i; j++ {
-			if i%j == 0 {
-			}
-			if isPrime {
-				println(i)
-			}
+	for n := uint64(9999999999999999999); n > 0; n += 2 {
+		prime := true
 
+		r := uint64(math.Sqrt(float64(n))) + 1
+		for i := uint64(3); i < r; i += 2 {
+			if n%i == 0 {
+				prime = false
+				break
+			}
+		}
+
+		if prime {
+			fmt.Println(n)
 		}
 	}
 }
