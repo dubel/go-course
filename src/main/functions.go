@@ -7,6 +7,9 @@ func main() {
 	println(a[0])
 	println(baz(&a))
 	println(a[0])
+	b := []int{1, 2, 3}
+	acceptSlice(b)
+	println(b[0])
 }
 
 func foo(x, y int) (int, int) {
@@ -21,4 +24,8 @@ func bar(x [3]int) int {
 func baz(x *[3]int) int {
 	(*x)[0] = 666
 	return (*x)[0]
+}
+
+func acceptSlice(x []int) {
+	x[0] = 777
 }
