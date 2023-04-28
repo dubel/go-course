@@ -10,6 +10,22 @@ func main() {
 	b := []int{1, 2, 3}
 	acceptSlice(b)
 	println(b[0])
+
+	println(applyFunc(increment, 1))
+	println(applyFunc(decrement, 1))
+	println(applyFunc(func(x int) int { return x * x }, 1))
+}
+
+func applyFunc(f func(int) int, x int) int {
+	return f(x)
+}
+
+func increment(x int) int {
+	return x + 1
+}
+
+func decrement(x int) int {
+	return x - 1
 }
 
 func foo(x, y int) (int, int) {
