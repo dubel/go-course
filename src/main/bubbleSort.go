@@ -20,6 +20,21 @@ indicates a position in the slice. The Swap() function should return nothing, bu
 the contents of the slice in position i with the contents in position i+1.
 */
 
+func BubbleSort(s []int) {
+	for i := 0; i < len(s); i++ {
+		for j := 0; j < len(s)-1; j++ {
+			if s[j] > s[j+1] {
+				s[j], s[j+1] = s[j+1], s[j]
+				//swap(s, j, j+1)
+			}
+		}
+	}
+}
+
+func Swap(s []int, i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
 func main() {
 
 }

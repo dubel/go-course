@@ -13,6 +13,7 @@ func main() {
 
 	println(applyFunc(increment, 1))
 	println(applyFunc(decrement, 1))
+	//anonymous function
 	println(applyFunc(func(x int) int { return x * x }, 1))
 }
 
