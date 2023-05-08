@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 func main() {
 	println(foo(1, 2))
 	a := [3]int{1, 2, 3}
@@ -45,4 +47,11 @@ func baz(x *[3]int) int {
 
 func acceptSlice(x []int) {
 	x[0] = 777
+}
+
+func MakeDistanceToOrginFunction(origin_x, origin_y float64) func(float64, float64) float64 {
+	fn := func(x, y float64) float64 {
+		return math.Sqrt(math.Pow(x-origin_x, 2) + math.Pow(y-origin_y, 2))
+	}
+	return fn
 }
