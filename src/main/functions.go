@@ -19,6 +19,9 @@ func main() {
 	println(applyFunc(decrement, 1))
 	//anonymous function
 	println(applyFunc(func(x int) int { return x * x }, 1))
+
+	vslice := []int{1, 2, 3, 4, 5}
+	println(getMax(vslice...))
 }
 
 func applyFunc(f func(int) int, x int) int {
