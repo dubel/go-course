@@ -1,6 +1,8 @@
 package main
 
-import "math"
+import (
+	"math"
+)
 
 func main() {
 	println(foo(1, 2))
@@ -54,4 +56,14 @@ func MakeDistanceToOrginFunction(origin_x, origin_y float64) func(float64, float
 		return math.Sqrt(math.Pow(x-origin_x, 2) + math.Pow(y-origin_y, 2))
 	}
 	return fn
+}
+
+func getMax(vals ...int) int {
+	maxV := -1
+	for _, v := range vals {
+		if v > maxV {
+			maxV = v
+		}
+	}
+	return maxV
 }
