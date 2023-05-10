@@ -1,10 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"math"
 )
 
 func main() {
+	i := 1
+	//it will print 2 because arguments are evaluated immediately
+	defer fmt.Print(i + 1)
+	i++
 	println(foo(1, 2))
 	a := [3]int{1, 2, 3}
 	println(bar(a))
