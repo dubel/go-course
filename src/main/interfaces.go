@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Shape2D interface {
 	Area() float64
 	Perimeter() float64
@@ -20,5 +22,9 @@ func (t Triangle) Perimeter() float64 {
 }
 
 func main() {
+	printMe("Test")
+}
 
+func printMe(val interface{}) {
+	fmt.Println(val)
 }
