@@ -1,65 +1,85 @@
 package main
 
 import "fmt"
+import "bufio"
+import "os"
+import "strings"
 
 type Animal struct {
-	food       string
-	locomotion string
-	noise      string
+	eats  string
+	moves string
+	says  string
 }
 
-func (animal Animal) Eat() {
-	fmt.Println("Animal ate: " + animal.food)
+func (a *Animal) InitAnimal(eats, moves, says string) {
+	a.eats = eats
+	a.moves = moves
+	a.says = says
 }
 
-func (animal Animal) Move() {
-	fmt.Println("Animal moved: " + animal.locomotion)
+func (a Animal) Eat() {
+	fmt.Println(a.eats)
 }
 
-func (animal Animal) Speak() {
-	fmt.Println("Animal made noise: " + animal.noise)
+func (a Animal) Move() {
+	fmt.Println(a.moves)
+}
+
+func (a Animal) Speak() {
+	fmt.Println(a.says)
 }
 
 func main() {
-	fmt.Println("Please enter the name of the animal, the action you want to perform after prompt \">\" in one line as two separate words: ")
-	fmt.Println("Use sigkill to end program execution - ctrl/cmd + C")
-	bird := Animal{"worms", "fly", "peep"}
+
+	var buf string
+
+	reader := bufio.NewReader(os.Stdin)
+
 	cow := Animal{"grass", "walk", "moo"}
+	bird := Animal{"worms", "fly", "peep"}
 	snake := Animal{"mice", "slither", "hsss"}
 
 	for {
-		var animalTypeFromUser, animalSoundFromUser string
-		var animal Animal
+		fmt.Print("> ")
+		buf, _ = reader.ReadString('\n')
+		bufs := strings.Split(buf, " ")
+		xa := bufs[0]
+		xo := bufs[1]
+		xo = strings.TrimSpace(xo)
 
-		fmt.Print(">")
-		if _, err := fmt.Scanln(&animalTypeFromUser, &animalSoundFromUser); err != nil {
-			fmt.Println("Error:", err)
-			break
-		}
+		//fmt.Printf("[%s]\n",xa)
+		//fmt.Printf("[%s]\n",xo)
 
-		switch animalTypeFromUser {
-		case "bird":
-			animal = bird
+		switch xa {
 		case "cow":
-			animal = cow
+			switch xo {
+			case "eat":
+				cow.Eat()
+			case "move":
+				cow.Move()
+			case "speak":
+				cow.Speak()
+			}
+		case "bird":
+			switch xo {
+			case "eat":
+				bird.Eat()
+			case "move":
+				bird.Move()
+			case "speak":
+				bird.Speak()
+			}
 		case "snake":
-			animal = snake
-		default:
-			fmt.Println("unrecognized animal")
-			continue
+			switch xo {
+			case "eat":
+				snake.Eat()
+			case "move":
+				snake.Move()
+			case "speak":
+				snake.Speak()
+			}
 		}
 
-		switch animalSoundFromUser {
-		case "eat":
-			animal.Eat()
-		case "move":
-			animal.Move()
-		case "speak":
-			animal.Speak()
-		default:
-			fmt.Println("unrecognized sound")
-			continue
-		}
 	}
 
 }
