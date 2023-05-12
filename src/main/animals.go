@@ -2,34 +2,34 @@ package main
 
 import "fmt"
 
-type Animal struct {
+type Mammal struct {
 	food       string
 	locomotion string
 	noise      string
 }
 
-func (animal Animal) Eat() {
-	fmt.Println("Animal ate: " + animal.food)
+func (animal Mammal) Eat() {
+	fmt.Println("Mammal ate: " + animal.food)
 }
 
-func (animal Animal) Move() {
-	fmt.Println("Animal moved: " + animal.locomotion)
+func (animal Mammal) Move() {
+	fmt.Println("Mammal moved: " + animal.locomotion)
 }
 
-func (animal Animal) Speak() {
-	fmt.Println("Animal made noise: " + animal.noise)
+func (animal Mammal) Speak() {
+	fmt.Println("Mammal made noise: " + animal.noise)
 }
 
 func main() {
 	fmt.Println("Please enter the name of the animal, the action you want to perform after prompt \">\" in one line as two separate words: ")
 	fmt.Println("Use sigkill to end program execution - ctrl/cmd + C")
-	bird := Animal{"worms", "fly", "peep"}
-	cow := Animal{"grass", "walk", "moo"}
-	snake := Animal{"mice", "slither", "hsss"}
+	bird := Mammal{"worms", "fly", "peep"}
+	cow := Mammal{"grass", "walk", "moo"}
+	snake := Mammal{"mice", "slither", "hsss"}
 
 	for {
 		var animalTypeFromUser, animalSoundFromUser string
-		var animal Animal
+		var animal Mammal
 
 		fmt.Print(">")
 		if _, err := fmt.Scanln(&animalTypeFromUser, &animalSoundFromUser); err != nil {
