@@ -1,33 +1,35 @@
+/*
+ * This program creates 2 go routines which share the variable v, one go routine
+ * is to increment this integer and the other goroutine to print its value. Since
+ * there is no synchronisation mechanism between the two threads and the data is
+ * shared, it is most likely to print different value after each run. The value
+ * printed cannot be predicted, hence the race condition.
+ */
+
 package main
 
-/* Two methods add and sub - are both accessing shared state (of an integer) incrementing and decrementing it - respectively.
-Execution of those method is done using goroutines using keyword "go" - leading to race condition.
-Most of the time the output will be "1" but sometimes it will be "0" depending on an outcome of interleaves.
-Program executes infinitely - until sigkill (ctrl/cmd + C) is sent.
-
-*/
 import (
 	"fmt"
 	"time"
 )
 
-var x int
-
-func add(a *int) {
-	*a += 1
-}
-
-func sub(a *int) {
-	*a -= 1
-}
+var v int = 0
 
 func main() {
 
-	for {
-		x := 1
-		go sub(&x)
-		go add(&x)
-		fmt.Print(x)
-		time.Sleep(1 * time.Second)
+	go change()
+	go print()
+
+	time.Sleep(time.Second)
+	fmt.Println("Done!")
+}
+
+func print() {
+	fmt.Println("The value of v is", v)
+}
+
+func change() {
+	for i := 0; i < 1000000; i++ {
+		v = i
 	}
 }
