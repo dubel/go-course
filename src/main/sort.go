@@ -13,6 +13,7 @@ func main() {
 	var inputNumberAsString string
 	for {
 		fmt.Println("Note: You have input 'X' to end input process and start sorting")
+		fmt.Print("Input integer and hit enter (or 'X' to start sorting):")
 		tokensNumber, err := fmt.Scan(&inputNumberAsString)
 		if strings.ToUpper(inputNumberAsString) == "X" {
 			break
@@ -45,9 +46,9 @@ func main() {
 	go BubbleSortConcurrent(fourthSlice, &wg)
 	wg.Wait()
 
-	mergedFirstAndSecond := append(firstSlice, secondSlice...)
-	mergedFirstAndSecondAndThird := append(mergedFirstAndSecond, thirdSlice...)
-	mergedFirstAndSecondAndThirdAndFourth := append(mergedFirstAndSecondAndThird, fourthSlice...)
+	mergedFirstAndSecond := merge(firstSlice, secondSlice)
+	mergedFirstAndSecondAndThird := merge(mergedFirstAndSecond, thirdSlice)
+	mergedFirstAndSecondAndThirdAndFourth := merge(mergedFirstAndSecondAndThird, fourthSlice)
 
 	fmt.Println("Program execution finished. Final content of sorted slice:", mergedFirstAndSecondAndThirdAndFourth)
 }
@@ -77,41 +78,24 @@ func swap(s []int, i int) {
 
 // -- merging slices helper functions
 
-func mergeTwoSortedSlices(firstSlice []int, firstSize int, secondSlice []int, secondSize int) []int {
-
-	if firstSize == 0 {
-		for k := 0; k < secondSize; k++ {
-			firstSlice[k] = secondSlice[k]
-		}
-		return firstSlice
-	}
-	firstSlice = pushElementToEndOfSlice(firstSlice, firstSize)
-	i := secondSize
+func merge(a []int, b []int) []int {
+	var final []int
+	i := 0
 	j := 0
-	for k := 0; k < firstSize+secondSize; k++ {
-		if i < firstSize+secondSize && j < secondSize {
-			if firstSlice[i] < secondSlice[j] {
-				firstSlice[k] = firstSlice[i]
-				i++
-			} else {
-				firstSlice[k] = secondSlice[j]
-				j++
-			}
-		} else if j < secondSize {
-			firstSlice[k] = secondSlice[j]
+	for i < len(a) && j < len(b) {
+		if a[i] < b[j] {
+			final = append(final, a[i])
+			i++
+		} else {
+			final = append(final, b[j])
 			j++
 		}
 	}
-	return firstSlice
-
-}
-
-func pushElementToEndOfSlice(sliceOfInt []int, m int) []int {
-	length := len(sliceOfInt)
-	k := length
-	for i := m - 1; i >= 0; i-- {
-		sliceOfInt[k-1] = sliceOfInt[i]
-		k--
+	for ; i < len(a); i++ {
+		final = append(final, a[i])
 	}
-	return sliceOfInt
+	for ; j < len(b); j++ {
+		final = append(final, b[j])
+	}
+	return final
 }
