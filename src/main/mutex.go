@@ -7,8 +7,12 @@ import (
 
 var i int = 0
 var mut sync.Mutex
+var on sync.Once
 
 func inc(group *sync.WaitGroup) {
+	on.Do(func() {
+		fmt.Println("init")
+	})
 	mut.Lock()
 	i++
 	mut.Unlock()
